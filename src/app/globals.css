@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+  --ligth-background: #ffffff;
+  --ligth-tile: #000000;
+
+  --dark-background: #0000;
+  --dark-title: #eafde4;
+
+}
+
+@font-face {
+  font-family: 'Sakitu Baelah Clean';
+  src: url('/fonts/SakituBaelahClean.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url('/fonts/Roboto_Condensed-Light.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto-ExtraBold';
+  src: url('/fonts/Roboto_SemiCondensed-ExtraBold.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.custom-pixelate {
+  image-rendering: pixelated;
+}
