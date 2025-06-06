@@ -88,11 +88,10 @@
 guess-the-game/
 ├── app/                  # Next.js App Router
 │   ├── api/              # Rotas da API (IGDB)
-│   └── (game)/           # Páginas do jogo
+│   └── page.js/          # Páginas principal do jogo
 ├── components/           # Componentes React
-├── lib/                  # Lógica do jogo e API
+│   └── page/             # Componentes Importantes
 ├── public/               # Assets estáticos
-├── styles/               # Estilos globais
 ├── utils/                # Funções auxiliares
 └── README.md             # Este arquivo
 ```
