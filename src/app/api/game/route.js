@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    console.log('\n\nREQUISIÇÃO FEITA \n\n')
     const gamesResponse = await fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {

@@ -61,7 +61,6 @@ export default function ClientGame() {
   const [modals, dispatchModal] = useReducer(modalReducer, modalsStates);
   const [isHovered, setIsHovered] = useState(false);
   const [tipOppened, setTipOppened] = useState([]);
-  console.log('ESTADO ATUAL', state)
   // Determina se podemos fazer uma nova requisição
   const canRequest = (now - lastRequest >= COOLDOWN_TIME) && (state.win || state.lose);
 
@@ -102,7 +101,6 @@ export default function ClientGame() {
       
       // Tenta carregar estado salvo se houver erro
       const savedState = getItemInLocalStorage("gameState");
-      console.log('savedState: ', savedState)
       if (savedState) {
         dispatch({
           type: "INIT",
