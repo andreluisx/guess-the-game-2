@@ -64,7 +64,7 @@ export function gameReducer(state, action) {
         if (checkGameAnswer(state.game.name, state.input)) {
           const newState = { ...state, win: true, imageNumber: state.totalHearts };
           setItemToLocalStorage('gameState', newState);
-          incrementItemInLocalStorage('totalPoints', Math.ceil(state.points / 2))
+          incrementItemInLocalStorage('totalPoints', state.points)
           return newState;
         }
 
