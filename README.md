@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Guess The Game 🎮
 
-## Getting Started
+**Um jogo de adivinhação onde você precisa descobrir o nome de um jogo baseado em imagens e dicas!**
 
-First, run the development server:
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js">
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/IGDB_API-000000?style=for-the-badge" alt="IGDB API">
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📌 Visão Geral
+
+"Guess The Game" é um jogo onde você recebe imagens gradualmente mais reveladoras de um jogo e precisa adivinhar seu nome. Quanto mais rápido você acertar, mais pontos ganha!
+
+## ✨ Funcionalidades
+
+- ✔ **Sistema de Pontuação** (Diminui com erros e dicas usadas)
+- ✔ **Dicas Estratégicas** (Cada dica custa pontos)
+- ✔ **Persistência no LocalStorage** (Salva progresso e recordes)
+- ✔ **Modo Cooldown** (Evita abuso de requisições à API)
+- ✔ **Efeitos Visuais** (Confetti ao vencer, imagens filtradas)
+- ✔ **Totalmente Responsivo** (Mobile & Desktop)
+
+## ⚙️ Tecnologias Utilizadas
+
+- **Next.js** (App Router, Server Components, API Routes)
+- **React** (useReducer, Context API, Hooks)
+- **Tailwind CSS** (Estilização rápida e responsiva)
+- **IGDB API** (Banco de dados de jogos e screenshots)
+- **LocalStorage** (Persistência de estado e pontuação)
+- **Lucide Icons** (Ícones modernos)
+
+## 🚀 Como Rodar o Projeto
+
+### Pré-requisitos
+
+- Node.js (v18+)
+- NPM ou Yarn
+- Chave de API do IGDB ([Como obter](https://api-docs.igdb.com/))
+
+### Passo a Passo
+
+1. **Clone o repositório**
+
+   ```bash
+   git clone https://github.com/seu-usuario/guess-the-game.git
+   cd guess-the-game
+   ```
+
+2. **Instale as dependências**
+
+   > _Algumas dependências podem exigir `--force` devido a conflitos de versão_
+
+   ```bash
+   npm install --force
+   # ou
+   yarn install --force
+   ```
+
+3. **Configure a API Key do IGDB**
+
+   Crie um arquivo `.env.local` na raiz do projeto:
+
+   ```env
+    SECRET=sua_chave_secreta
+    CLIENT_ID=seu_client_id
+    TOKEN=seu_access_token
+    NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    COOLDOWN_TIME=0
+   ```
+
+4. **Inicie o servidor de desenvolvimento**
+
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+5. **Acesse no navegador**
+
+   Abra [http://localhost:3000](http://localhost:3000)
+
+## 📂 Estrutura do Projeto
+
+```
+guess-the-game/
+├── app/                  # Next.js App Router
+│   ├── api/              # Rotas da API (IGDB)
+│   └── (game)/           # Páginas do jogo
+├── components/           # Componentes React
+├── lib/                  # Lógica do jogo e API
+├── public/               # Assets estáticos
+├── styles/               # Estilos globais
+├── utils/                # Funções auxiliares
+└── README.md             # Este arquivo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Possíveis Problemas & Soluções
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Erro ao instalar dependências
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Se ocorrerem conflitos, use:
 
-## Learn More
+```bash
+npm install --legacy-peer-deps --force
+```
 
-To learn more about Next.js, take a look at the following resources:
+### API do IGDB não responde
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Verifique:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- ✅ Se a chave de API está correta no `.env.local`
+- ✅ Se a conta da IGDB tem créditos disponíveis
 
-## Deploy on Vercel
+### LocalStorage não persiste
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Alguns navegadores bloqueiam localStorage em modo privado. Teste em modo normal.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Licença
+
+MIT License - Livre para uso e modificação.
+
+---
+
+**Gostou? Dê uma ⭐ no repositório!**
+
+**Quer contribuir? Abra uma PR ou Issue!**
+
+🚀 **Divirta-se jogando!** 🚀

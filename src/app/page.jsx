@@ -169,6 +169,7 @@ export default function ClientGame() {
       <div className="flex items-center justify-center h-screen text-white">
         <div className="text-center">
           <p className="text-red-500 mb-4">Erro ao carregar o jogo: {error}</p>
+          <p className="text-red-500 mb-4">Pode ter acontecido um problema com o serviço externo utilizado. :( </p>
           <button 
             onClick={fetchGameData}
             className="px-4 py-2 bg-red-700 rounded-md hover:bg-red-600"
