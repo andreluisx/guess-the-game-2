@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import Image from "next/image";
 
-export default function RenderResultModal( {state, dispatchModal} ) {
+export default function RenderResultModal({ state, dispatchModal }) {
   const showConfetti = state.win;
 
   return (
@@ -35,7 +35,7 @@ export default function RenderResultModal( {state, dispatchModal} ) {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Seção da capa do jogo */}
           {state.game?.cover && (
-            <div className="lg:w-1/3 flex justify-start items-center lg:justify-center">
+            <div className="lg:w-1/3 flex justify-center lg:justify-start md:items-start items-center">
               <div className="relative">
                 <Image
                   src={`https:${state.game?.cover.url.replace(
@@ -45,9 +45,10 @@ export default function RenderResultModal( {state, dispatchModal} ) {
                   alt={`Capa de ${state.game?.name}`}
                   width={264}
                   height={352}
-                  className={'rounded-lg shadow-black shadow-2xl transition-transform border border-slate-800 duration-300 scale-100'}
+                  className={
+                    "rounded-lg shadow-black shadow-2xl transition-transform border border-slate-800 duration-300 scale-100"
+                  }
                 />
-                
               </div>
             </div>
           )}
@@ -155,18 +156,16 @@ export default function RenderResultModal( {state, dispatchModal} ) {
                 </div>
               )}
             </div>
-
-            {state.game?.summary && (
-              <div className="mb-6">
-                <h4 className="text-slate-400 text-sm font-semibold mb-2">
-                  SINOPSE
-                </h4>
-                <p className="text-slate-300">{state.game?.summary}</p>
-              </div>
-            )}
           </div>
         </div>
-
+        {state.game?.summary && (
+          <div className="mb-6">
+            <h4 className="text-slate-400 text-sm font-semibold mb-2">
+              SINOPSE
+            </h4>
+            <p className="text-slate-300">{state.game?.summary}</p>
+          </div>
+        )}
         {/* Seção de screenshots */}
         {state.images?.length > 0 && (
           <div className="mt-8">

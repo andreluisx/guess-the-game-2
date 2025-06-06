@@ -25,7 +25,16 @@ export const deleteItemInLocalStorage = (key) => {
   }
 }
 
+export const incrementItemInLocalStorage = (key, amount = 1) => {
+  const current = parseInt(localStorage.getItem(key)) || 0;
+  const updated = current + amount;
+  localStorage.setItem(key, JSON.stringify(updated));
+};
+
+
 export function gameReducer(state, action) {
+  const totalPoints = getItemInLocalStorage("totalPoints");
+
   switch (action.type) {
     case 'INIT': {
       const newState = {
@@ -55,6 +64,7 @@ export function gameReducer(state, action) {
         if (checkGameAnswer(state.game.name, state.input)) {
           const newState = { ...state, win: true, imageNumber: state.totalHearts };
           setItemToLocalStorage('gameState', newState);
+          incrementItemInLocalStorage('totalPoints', Math.ceil(state.points / 2))
           return newState;
         }
 
@@ -63,9 +73,10 @@ export function gameReducer(state, action) {
           setItemToLocalStorage('gameState', newState);
           return newState;
         }
-
         const newState = { ...state, lose: true, points: Math.floor(Math.max(0, state.points - (100 / state.totalHearts))), responsesHistory: [...state.responsesHistory, action.payload], input: '', hearts: state.hearts - 1, imageNumber: state.imageNumber + 1 }
         setItemToLocalStorage('gameState', newState);
+
+        
         return newState;
       }
 
@@ -97,7 +108,7 @@ export function gameReducer(state, action) {
       return state;
 
     case 'RESET_GAME':
-      return {...state, canStart: true}
+      return { ...state, canStart: true }
     default:
       return state;
   }

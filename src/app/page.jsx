@@ -2,7 +2,7 @@
 import { useEffect, useReducer, useState } from "react";
 
 // Reducers
-import { gameReducer, getItemInLocalStorage, setItemToLocalStorage } from "../reducer/gameReducer";
+import { gameReducer, getItemInLocalStorage, incrementItemInLocalStorage, setItemToLocalStorage } from "../reducer/gameReducer";
 import { modalReducer } from "../reducer/modalReducer";
 
 // Utils
@@ -19,7 +19,7 @@ import RightContent from "../components/page/RightContent";
 import LeftContent from "../components/page/LeftContent";
 
 const MAX_SCREENSHOTS = 6;
-const COOLDOWN_TIME = (Number(process.env.COOLDOWN_TIME) || 3) * 60 * 1000; // 3 minutos
+const COOLDOWN_TIME = (Number(process.env.COOLDOWN_TIME) || 1) * 60 * 1000; // 3 minutos
 
 
 export default function ClientGame() {
@@ -54,7 +54,7 @@ export default function ClientGame() {
     win: false,
     canStart: false,
   };
-  
+
 
   // Declarações de estado
   const [state, dispatch] = useReducer(gameReducer, initialState);
@@ -81,6 +81,7 @@ export default function ClientGame() {
       
       // Atualiza o timestamp da última requisição
       setItemToLocalStorage("lastRequest", Date.now());
+      incrementItemInLocalStorage('matches', 1)
       
       // Atualiza o estado com os novos dados
       dispatch({
@@ -207,7 +208,7 @@ export default function ClientGame() {
         {/* Div que envolve o Conteudo */}
         <div className="flex lg:flex-row flex-col">
           {/* Conteúdo da esquerda / invisivel no celular */}
-          <LeftContent />
+          <LeftContent state={state} />
 
           {/* Conteúdo central / Primeiro (celular) */}
           <PrincipalContent

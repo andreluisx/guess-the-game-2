@@ -4,6 +4,7 @@ import Image from "next/image";
 import RenderHearts from "./RenderHearts";
 import renderDifficulty from "../../utils/renderDifficulty";
 import { useEffect, useState } from "react";
+import { incrementItemInLocalStorage } from "../../reducer/gameReducer";
 
 export default function PrincipalContent({
   state,
@@ -180,6 +181,7 @@ export default function PrincipalContent({
           onSubmit={(e) => {
             dispatch({ type: "SUBMIT", payload: state.input });
             e.preventDefault();
+            
           }}
           className="w-full h-12 flex justify-center items-center bg-black/50 border border-slate-800 rounded-md mt-2"
         >
