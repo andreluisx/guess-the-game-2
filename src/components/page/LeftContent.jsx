@@ -32,7 +32,7 @@ export default function LeftContent({ state }) {
   return (
     <div
       style={{ fontFamily: "Roboto" }}
-      className="z-30 pb-5 lg:pb-0 lg:w-2/6 w-full flex-row lg:flex-col gap-3 flex md:px-4 px-0 justify-start items-start"
+      className="z-30 pb-5 lg:pb-0 lg:w-2/6 w-full flex-row lg:flex-col gap-3 flex lg:px-4 px-0 justify-start items-start"
     >
       {toRender.map((info) => {
         return (

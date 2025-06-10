@@ -15,9 +15,9 @@ export async function GET() {
                involved_companies.company.name, involved_companies.developer, involved_companies.publisher,
                first_release_date, platforms.name, game_modes.name, player_perspectives.name,
                themes.name, keywords.name, franchises.name, collection.name, external_games.category, external_games.url;
-        where rating >= 85 & rating_count >= 200 & first_release_date > 946684800;
+        where rating >= 80 & rating_count >= 200 & first_release_date > 1262304000;
         sort follows desc;
-        limit 300;
+        limit 350;
       `,
     });
 

@@ -19,7 +19,7 @@ import RightContent from "../components/page/RightContent";
 import LeftContent from "../components/page/LeftContent";
 
 const MAX_SCREENSHOTS = 6;
-const COOLDOWN_TIME = (Number(process.env.COOLDOWN_TIME) || 1) * 60 * 1000; // 3 minutos
+const COOLDOWN_TIME = (Number(process.env.COOLDOWN_TIME) || 0.5) * 60 * 1000; // 30 sec
 
 
 export default function ClientGame() {
@@ -152,16 +152,7 @@ export default function ClientGame() {
   }, [state.win, state.lose]);
 
   // Renderização de carregamento
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700 mx-auto"></div>
-          <p className="mt-4">Carregando jogo...</p>
-        </div>
-      </div>
-    );
-  }
+ 
 
   // Renderização de erro
   if (error) {
@@ -183,9 +174,6 @@ export default function ClientGame() {
 
   return (
     <div className="w-full h-screen">
-      {/* Div para escurecer o fundo */}
-
-      {/* Todos os Modais (Modal) */}
       
       {modals.tipModal && <RenderTipsModal tipOppened={tipOppened} dispatchModal={dispatchModal}/>}
       {modals.surrenderModal && <RenderSurrenderModal dispatch={dispatch} dispatchModal={dispatchModal}/>}
@@ -219,6 +207,7 @@ export default function ClientGame() {
             lastRequest={lastRequest}
             cooldownTime={COOLDOWN_TIME}
             fetchData={fetchGameData}
+            loading={isLoading}
           />
 
           {/* Conteúdo direita / Ultimo (celular) */}
@@ -227,6 +216,7 @@ export default function ClientGame() {
             dispatch={dispatch}
             setTipOppened={setTipOppened}
             dispatchModal={dispatchModal}
+            loading={isLoading}
           />
         </div>
       </div>

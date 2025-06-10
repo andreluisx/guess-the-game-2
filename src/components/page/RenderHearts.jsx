@@ -1,7 +1,10 @@
+import { Skeleton } from "@mui/material";
 import { Heart } from "lucide-react";
 
 export default function RenderHearts (state) {
   // Lógica para renderizar os corações
+  
+
   return Array.from({ length: state.totalHearts }).map((_, i) => (
     <Heart
       key={i}
