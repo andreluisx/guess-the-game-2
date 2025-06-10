@@ -8,6 +8,7 @@ const queryClient = new QueryClient();
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <title>Guess the Game - André Luís</title>
       <body className="relative">
         <div className="fixed inset-0 -z-10">
           <div className="absolute inset-0 bg-[url('/images/kratos.jpg')] bg-cover bg-center" />
