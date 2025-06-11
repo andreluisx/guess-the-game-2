@@ -60,7 +60,7 @@ export default function PrincipalContent({
   const renderImage = () => {
     if (loading) {
       return (
-        <div className="flex items-center justify-center h-96 bg-black/40 text-white">
+        <div className="flex items-center justify-center md:h-96 h-56  bg-black/40 text-white">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-700 mx-auto"></div>
             <p className="mt-4">Carregando jogo...</p>

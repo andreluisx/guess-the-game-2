@@ -61,8 +61,8 @@ export default function RightContent({
             <Skeleton
               key={index}
               variant="rectangular"
-              width={60}
-              height={60}
+              width={57}
+              height={57}
               sx={{
                 bgcolor: "rgba(255,255,255,0.1)",
                 opacity: 1,

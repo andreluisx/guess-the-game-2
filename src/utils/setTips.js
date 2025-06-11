@@ -78,32 +78,31 @@ export default function generateHintPairs(game, numberOfPairs = 4) {
     return value !== null && value !== undefined && value !== "";
   });
 
-  // Verifica se temos dicas suficientes
-  if (validHints.length < 2) {
-    console.warn("Não há dicas suficientes para gerar pares");
-    return [];
+  // Verifica se temos dicas suficientes para o número de pares solicitado
+  const hintsNeeded = numberOfPairs * 2; // Cada par precisa de 2 dicas diferentes
+  if (validHints.length < hintsNeeded) {
+    console.warn(`Não há dicas suficientes. Disponíveis: ${validHints.length}, Necessárias: ${hintsNeeded}`);
+    // Ajusta o número de pares baseado nas dicas disponíveis
+    numberOfPairs = Math.floor(validHints.length / 2);
   }
 
-  // Gera TODOS os pares possíveis primeiro
-  const allPossiblePairs = [];
-  for (let i = 0; i < validHints.length; i++) {
-    for (let j = i + 1; j < validHints.length; j++) {
-      allPossiblePairs.push([validHints[i], validHints[j]]);
-    }
+  // Embaralha as dicas válidas
+  const shuffledHints = validHints.sort(() => Math.random() - 0.5);
+
+  // Seleciona as dicas necessárias (2 por par, sem repetição)
+  const selectedHints = shuffledHints.slice(0, numberOfPairs * 2);
+
+  // Cria os pares agrupando de 2 em 2
+  const hintPairs = [];
+  for (let i = 0; i < selectedHints.length; i += 2) {
+    const pair = [selectedHints[i], selectedHints[i + 1]];
+    
+    hintPairs.push({
+      id: `${Math.floor(i / 2) + 1}`,
+      tips: pair,
+      clicked: false
+    });
   }
-
-  // Embaralha os pares possíveis
-  const shuffledPairs = allPossiblePairs.sort(() => Math.random() - 0.5);
-
-  // Pega apenas o número de pares solicitado
-  const selectedPairs = shuffledPairs.slice(0, Math.min(numberOfPairs, shuffledPairs.length));
-
-  // Converte para o formato final
-  const hintPairs = selectedPairs.map((pair, index) => ({
-    id: `${index + 1}`,
-    tips: pair,
-    clicked: false
-  }));
 
   return hintPairs;
 }
