@@ -1,30 +1,35 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getItemInLocalStorage } from "../../reducer/gameReducer";
 import { ChartColumnIncreasing, Divide, Gamepad2 } from "lucide-react";
+import { Skeleton } from "@mui/material";
 
-export default function LeftContent({ state }) {
-  const [data, seData] = useState({ matches: 0, totalPoints: 0, media: 0 });
-  useState(() => {
-    const matches = getItemInLocalStorage("matches");
-    const totalPoints = getItemInLocalStorage("totalPoints");
-    seData({ matches, totalPoints, media: Math.ceil(totalPoints / matches) });
-  }, [state, data]);
+export default function LeftContent({ state, loading, statsUpdate }) {
+  const [data, setData] = useState({ matches: 0, totalPoints: 0, media: 0 });
+
+  // useEffect para executar quando state, loading ou statsUpdate mudarem
+  useEffect(() => {
+    const matches = getItemInLocalStorage("matches") || 0;
+    const totalPoints = getItemInLocalStorage("totalPoints") || 0;
+    const media = matches > 0 ? Math.ceil(totalPoints / matches) : 0;
+
+    setData({ matches, totalPoints, media });
+  }, [state, loading, statsUpdate]); // Adicionado statsUpdate para forçar atualização
 
   const toRender = [
     {
       title: "Total de Partidas",
-      value: data.matches || 0,
+      value: data.matches,
       icon: <Gamepad2 size={23} />,
     },
     {
       title: "Pontuação Total",
-      value: data.totalPoints || 0,
+      value: data.totalPoints,
       icon: <ChartColumnIncreasing size={23} />,
     },
     {
       title: "Média de Pontos",
-      value: data.media || 0,
+      value: data.media,
       icon: <Divide size={23} />,
     },
   ];
@@ -48,10 +53,25 @@ export default function LeftContent({ state }) {
                 <h3 className="text-sm text-center lg:text-xl">{info.title}</h3>
               </div>
             </div>
-            <div className="flex  justify-center w-full items-center h-fit">
-              <p className="md:text-4xl text-xl font-bold lg:p-3 p-1 text-shadow-2xs">
-                {info.value}
-              </p>
+            <div className="flex justify-center w-full items-center h-fit">
+              {!loading ? (
+                <p className="md:text-4xl text-xl font-bold lg:p-3 p-1 text-shadow-2xs">
+                  {info.value}
+                </p>
+              ) : (
+                <Skeleton
+                  variant="rectangular"
+                  width={80}
+                  height={40}
+                  className="mx-2"
+                  sx={{
+                    marginTop:'7px',
+                    bgcolor: "rgba(255,255,255,0.1)",
+                    opacity: 1,
+                    borderRadius: 1, // opcional: deixa os quadrados com cantos levemente arredondados
+                  }}
+                />
+              )}
             </div>
           </div>
         );

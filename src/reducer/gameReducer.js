@@ -65,6 +65,8 @@ export function gameReducer(state, action) {
           const newState = { ...state, win: true, imageNumber: state.totalHearts };
           setItemToLocalStorage('gameState', newState);
           incrementItemInLocalStorage('totalPoints', state.points)
+          incrementItemInLocalStorage('matches', 1);
+
           return newState;
         }
 
@@ -75,8 +77,8 @@ export function gameReducer(state, action) {
         }
         const newState = { ...state, lose: true, points: Math.floor(Math.max(0, state.points - (100 / state.totalHearts))), responsesHistory: [...state.responsesHistory, action.payload], input: '', hearts: state.hearts - 1, imageNumber: state.imageNumber + 1 }
         setItemToLocalStorage('gameState', newState);
+        incrementItemInLocalStorage('matches', 1);
 
-        
         return newState;
       }
 
@@ -84,6 +86,7 @@ export function gameReducer(state, action) {
 
     case 'SURRENDER':
       const newState = { ...state, lose: true, imageNumber: state.totalHearts, hearts: 0, points: 0 }
+      incrementItemInLocalStorage('matches', 1);
       setItemToLocalStorage('gameState', newState);
       return newState;
 

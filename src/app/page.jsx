@@ -21,7 +21,6 @@ import LeftContent from "../components/page/LeftContent";
 const MAX_SCREENSHOTS = 6;
 const COOLDOWN_TIME = (Number(process.env.COOLDOWN_TIME) || 0.5) * 60 * 1000; // 30 sec
 
-
 export default function ClientGame() {
   const modalsStates = {
     tipModal: false,
@@ -32,12 +31,12 @@ export default function ClientGame() {
   // Estado para controle de carregamento e erro
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  // Novo estado para forçar atualização do LeftContent
+  const [statsUpdate, setStatsUpdate] = useState(0);
   
   // Recupera o último timestamp de requisição do localStorage
   const lastRequest = getItemInLocalStorage("lastRequest") || 0;
   const now = Date.now();
-  
-  
 
   // Estado inicial
   const initialState = {
@@ -55,12 +54,12 @@ export default function ClientGame() {
     canStart: false,
   };
 
-
   // Declarações de estado
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const [modals, dispatchModal] = useReducer(modalReducer, modalsStates);
   const [isHovered, setIsHovered] = useState(false);
   const [tipOppened, setTipOppened] = useState([]);
+  
   // Determina se podemos fazer uma nova requisição
   const canRequest = (now - lastRequest >= COOLDOWN_TIME) && (state.win || state.lose);
 
@@ -80,7 +79,9 @@ export default function ClientGame() {
       
       // Atualiza o timestamp da última requisição
       setItemToLocalStorage("lastRequest", Date.now());
-      incrementItemInLocalStorage('matches', 1)
+      
+      // Força atualização das estatísticas
+      setStatsUpdate(prev => prev + 1);
       
       // Atualiza o estado com os novos dados
       dispatch({
@@ -135,8 +136,6 @@ export default function ClientGame() {
     }
   }, []);
 
-
-
   // Salva o estado no localStorage sempre que ele mudar
   useEffect(() => {
     if (state.game) {
@@ -144,15 +143,19 @@ export default function ClientGame() {
     }
   }, [state]);
 
-  // Verifica se o jogo acabou
+  // Verifica se o jogo acabou e salva a pontuação
   useEffect(() => {
     if ((state.win || state.lose) && !modals.resultModal) {
+      // Salva a pontuação total quando o jogo termina
+      if (state.points > 0) {
+        incrementItemInLocalStorage('totalPoints', state.points);
+        // Força atualização das estatísticas
+        setStatsUpdate(prev => prev + 1);
+      }
+      
       dispatchModal({ type: "RESULT_MODAL" });
     }
-  }, [state.win, state.lose]);
-
-  // Renderização de carregamento
- 
+  }, [state.win, state.lose, state.points]);
 
   // Renderização de erro
   if (error) {
@@ -195,7 +198,11 @@ export default function ClientGame() {
         {/* Div que envolve o Conteudo */}
         <div className="flex lg:flex-row flex-col">
           {/* Conteúdo da esquerda / invisivel no celular */}
-          <LeftContent state={state} />
+          <LeftContent 
+            state={state} 
+            loading={isLoading} 
+            statsUpdate={statsUpdate} // Nova prop para forçar atualização
+          />
 
           {/* Conteúdo central / Primeiro (celular) */}
           <PrincipalContent
